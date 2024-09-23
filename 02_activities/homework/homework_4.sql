@@ -77,6 +77,15 @@ WHERE product_size REGEXP '[0-9]';
 -- UNION
 /* 1. Using a UNION, write a query that displays the market dates with the highest and lowest total sales.
 
+
+select market_date, max(total) as amount from (
+select market_date, round(sum(quantity*cost_to_customer_per_qty),2) as total 
+from customer_purchases group by market_date)
+union
+select market_date, min(total) as amount from (
+select market_date, round(sum(quantity*cost_to_customer_per_qty),2) as total 
+from customer_purchases group by market_date);
+
 HINT: There are a possibly a few ways to do this query, but if you're struggling, try the following: 
 1) Create a CTE/Temp Table to find sales values grouped dates; 
 2) Create another CTE/Temp table with a rank windowed function on the previous query to create 
