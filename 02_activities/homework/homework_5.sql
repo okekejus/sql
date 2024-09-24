@@ -9,19 +9,30 @@ Think a bit about the row counts: how many distinct vendors, product names are t
 How many customers are there (y). 
 Before your final group by you should have the product of those two queries (x*y).  */
 
-
+select vendor_name, sum(total) from (
+select a.customer_id, b.vendor_name, (b.original_price * 5) as total from customer a
+cross join (select DISTINCT b.vendor_name, c.product_name, original_price from vendor_inventory a
+left join vendor b on a.vendor_id=b.vendor_id
+left join product c on a.product_id = c.product_id) b) 
+group by vendor_name
 
 -- INSERT
 /*1.  Create a new table "product_units". 
 This table will contain only products where the `product_qty_type = 'unit'`. 
 It should use all of the columns from the product table, as well as a new column for the `CURRENT_TIMESTAMP`.  
 Name the timestamp column `snapshot_timestamp`. */
+create table product_units 
+as 
+select * from product where product_qty_type = 'unit'
+
 
 
 
 /*2. Using `INSERT`, add a new row to the product_units table (with an updated timestamp). 
 This can be any product you desire (e.g. add another record for Apple Pie). */
 
+insert into product_units
+VALUES(30, 'Pesto Jar', '250 ml', 3, 'unit', date('2024-09-23'))
 
 
 -- DELETE
@@ -29,7 +40,7 @@ This can be any product you desire (e.g. add another record for Apple Pie). */
 
 HINT: If you don't specify a WHERE clause, you are going to have a bad time.*/
 
-
+delete from product_units where snapshot_timestamp = '2024-09-23'
 
 -- UPDATE
 /* 1.We want to add the current_quantity to the product_units table. 
