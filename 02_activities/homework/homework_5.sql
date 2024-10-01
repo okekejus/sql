@@ -25,7 +25,11 @@ create table product_units
 as 
 select * from product where product_qty_type = 'unit'
 
+ALTER table product_units
+add column CURRENT_TIMESTAMP;
 
+ALTER table product_units 
+rename COLUMN current_timestamp to snapshot_timestamp;
 
 
 /*2. Using `INSERT`, add a new row to the product_units table (with an updated timestamp). 
@@ -50,6 +54,19 @@ ALTER TABLE product_units
 ADD current_quantity INT;
 
 Then, using UPDATE, change the current_quantity equal to the last quantity value from the vendor_inventory details.
+UPDATE product_units
+SET current_quantity = (
+    SELECT quantity
+    FROM vendor_inventory
+    WHERE vendor_inventory.product_id = product_units.product_id
+    ORDER BY market_date DESC
+    LIMIT 1
+)
+WHERE EXISTS (
+    SELECT 1
+    FROM vendor_inventory
+    WHERE vendor_inventory.product_id = product_units.product_id
+);
 
 HINT: This one is pretty hard. 
 First, determine how to get the "last" quantity per product. 
