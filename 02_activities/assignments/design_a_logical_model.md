@@ -3,10 +3,11 @@
 ## Question 1
 Create a logical model for a small bookstore. 📚
 
-At the minimum it should have employee, order, sales, customer, and book entities (tables). Determine sensible column and table design based on what you know about these concepts. Keep it simple, but work out sensible relationships to keep tables reasonably sized. Include a date table. There are several tools online you can use, I'd recommend [_Draw.io_](https://www.drawio.com/) or [_LucidChart_](https://www.lucidchart.com/pages/).
-```
-Model is in assignment file
-```
+At the minimum it should have employee, order, sales, customer, and book entities (tables). Determine sensible column and table design based on what you know about these concepts. Keep it simple, but work out sensible relationships to keep tables reasonably sized. Include a date table.
+
+Access [model](https://github.com/okekejus/sql/blob/assignment1/02_activities/assignments/Database%20ER%20diagram%20(crow's%20foot).png)
+
+
 
 
 ## Question 2
